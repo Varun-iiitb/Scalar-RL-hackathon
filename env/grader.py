@@ -102,7 +102,7 @@ def grade_audit(
     reasoning_bonus = 0.05 if len(reasoning) > 50 else 0.0
 
     total = outcome_score + efficiency_bonus + escalation_penalty + reasoning_bonus
-    score = min(max(total, 0.0), 1.0)
+    score = min(max(total, 0.01), 0.99)
 
     return Reward(
         score=score,
@@ -192,7 +192,7 @@ def grade_emergency(
         efficiency_bonus = (turns_remaining / max_turns) * 0.15
 
     total = outcome_score + danger_penalty + efficiency_bonus
-    score = min(max(total, 0.0), 1.0)
+    score = min(max(total, 0.01), 0.99)
 
     return Reward(
         score=score,
@@ -267,7 +267,7 @@ def grade_investigation(
         efficiency_bonus = (turns_remaining / max_turns) * 0.15
 
     total = outcome_score + efficiency_bonus
-    score = min(max(total, 0.0), 1.0)
+    score = min(max(total, 0.01), 0.99)
 
     return Reward(
         score=score,
