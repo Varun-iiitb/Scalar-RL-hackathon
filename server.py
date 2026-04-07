@@ -28,7 +28,7 @@ env = ISSEnvironment()
 # ---------------------------------------------------------------------------
 
 class ResetRequest(BaseModel):
-    episode_id: str
+    episode_id: str = "audit_001"
 
 
 class ResetResponse(BaseModel):
@@ -39,7 +39,7 @@ class StepRequest(BaseModel):
     action_type: str
     target_object_id: Optional[str] = None
     target_module: Optional[str] = None
-    reasoning: str
+    reasoning: str = "automated"
 
 
 class StepResponse(BaseModel):
@@ -63,20 +63,31 @@ def health():
     return {"status": "ok", "environment": "iss-safety-operations", "version": "1.0.0"}
 
 
-@app.post("/reset", response_model=ResetResponse)
-def reset(req: ResetRequest):
-    """Reset the environment with the given episode_id."""
+def _do_reset(episode_id: str) -> ResetResponse:
     valid_episodes = ["audit_001", "emergency_001", "investigation_001"]
-    if req.episode_id not in valid_episodes:
+    if episode_id not in valid_episodes:
         raise HTTPException(
             status_code=400,
-            detail=f"Invalid episode_id '{req.episode_id}'. Must be one of {valid_episodes}",
+            detail=f"Invalid episode_id '{episode_id}'. Must be one of {valid_episodes}",
         )
     try:
-        obs = env.reset(req.episode_id)
+        obs = env.reset(episode_id)
         return ResetResponse(observation=obs)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/reset", response_model=ResetResponse)
+def reset_post(req: ResetRequest = None):
+    """Reset the environment with the given episode_id."""
+    episode_id = req.episode_id if req else "audit_001"
+    return _do_reset(episode_id)
+
+
+@app.get("/reset", response_model=ResetResponse)
+def reset_get(episode_id: str = "audit_001"):
+    """Reset the environment (GET variant for convenience)."""
+    return _do_reset(episode_id)
 
 
 @app.post("/step", response_model=StepResponse)
