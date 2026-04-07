@@ -182,6 +182,19 @@ class ISSEnvironment:
         return self._state.model_dump()
 
     # ------------------------------------------------------------------
+    # Async wrappers (required by openenv-core's create_app)
+    # ------------------------------------------------------------------
+
+    async def reset_async(self, episode_id: str) -> Observation:
+        return self.reset(episode_id)
+
+    async def step_async(self, action: Action) -> tuple[Observation, Reward, bool, dict]:
+        return self.step(action)
+
+    async def state_async(self) -> dict:
+        return self.state()
+
+    # ------------------------------------------------------------------
     # Helpers
     # ------------------------------------------------------------------
 
