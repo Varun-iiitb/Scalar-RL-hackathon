@@ -23,5 +23,4 @@ baseline_results.json
 .idea/
 
 # Misc
-uv.lock
 debug_llm.py

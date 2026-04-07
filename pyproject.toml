@@ -3,6 +3,7 @@ name = "iss-safety-operations"
 version = "0.1.0"
 description = "ISS Safety Operations OpenEnv Environment"
 authors = [{ name = "Tejas Kollipara" }]
+requires-python = ">=3.10"
 dependencies = [
     "openai",
     "pydantic",
@@ -13,5 +14,8 @@ dependencies = [
     "gradio>=4.0.0",
 ]
 
+[project.scripts]
+server = "server.app:main"
+
 [tool.setuptools]
-packages = ["env"]
+packages = ["env", "server"]
