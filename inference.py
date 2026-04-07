@@ -33,7 +33,7 @@ load_dotenv()
 # ============================================================
 
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
-MODEL_NAME = os.getenv("MODEL_NAME", "meta-llama/Llama-3-8b-instruct:groq")
+MODEL_NAME = os.getenv("MODEL_NAME", "Qwen/Qwen2.5-72B-Instruct")
 HF_TOKEN = os.getenv("HF_TOKEN")
 
 TASKS = ["audit_001", "emergency_001", "investigation_001"]
@@ -433,7 +433,9 @@ def main() -> int:
 
         return 0
 
-    except Exception:
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
         return 1
 
 
