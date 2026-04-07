@@ -4,6 +4,7 @@ WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV ENABLE_WEB_INTERFACE=true
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

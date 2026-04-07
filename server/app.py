@@ -10,6 +10,9 @@ import uvicorn
 # Add project root to path so imports work when run as module
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Enable web interface for Gradio UI
+os.environ.setdefault("ENABLE_WEB_INTERFACE", "true")
+
 from openenv.core.env_server.http_server import create_app
 from env.environment import ISSEnvironment
 from env.objects import Action, Observation
@@ -21,6 +24,12 @@ app = create_app(
     env_name="iss-safety-operations",
     max_concurrent_envs=1,
 )
+
+
+# Add root health check (openenv-core only provides /health)
+@app.get("/")
+def health():
+    return {"status": "ok", "environment": "iss-safety-operations", "version": "1.0.0"}
 
 
 def main():
