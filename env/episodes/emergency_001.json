@@ -1,0 +1,127 @@
+{
+  "episode_id": "emergency_001",
+  "episode_type": "emergency",
+  "mission_context": "FIRE ALERT: Smoke detected in Lab Module at timestep 0. Crew member is inside Lab. Contain the fire and protect the crew.",
+  "crew_locations": {
+    "crew_1": "Lab",
+    "crew_2": "CrewQuarters"
+  },
+  "active_alerts": [
+    {
+      "alert_id": "fire_lab_00",
+      "alert_type": "fire",
+      "module": "Lab",
+      "severity": "critical",
+      "triggered_at_timestep": 0
+    }
+  ],
+  "fire_spread_schedule": {
+    "2": "Node2",
+    "4": "Airlock"
+  },
+  "hidden_logs": [],
+  "max_turns": 6,
+  "objects": [
+    {
+      "object_id": "FE_lab_01",
+      "object_type": "FireExtinguisher",
+      "module": "Lab",
+      "status": "operational",
+      "pressure_level": 0.88,
+      "last_inspection_days_ago": 7,
+      "expiry_days_remaining": 130,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "FE_service_01",
+      "object_type": "FireExtinguisher",
+      "module": "ServiceModule",
+      "status": "operational",
+      "pressure_level": 0.91,
+      "last_inspection_days_ago": 5,
+      "expiry_days_remaining": 145,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "OT_lab_01",
+      "object_type": "OxygenTank",
+      "module": "Lab",
+      "status": "operational",
+      "pressure_level": 0.94,
+      "last_inspection_days_ago": 9,
+      "expiry_days_remaining": 200,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "SSP_lab_01",
+      "object_type": "SafetySwitchPanel",
+      "module": "Lab",
+      "status": "operational",
+      "pressure_level": null,
+      "last_inspection_days_ago": 4,
+      "expiry_days_remaining": 365,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "EP_node1_01",
+      "object_type": "EmergencyPhone",
+      "module": "Node1",
+      "status": "operational",
+      "pressure_level": null,
+      "last_inspection_days_ago": 2,
+      "expiry_days_remaining": 400,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "FAB_crew_01",
+      "object_type": "FirstAidBox",
+      "module": "CrewQuarters",
+      "status": "operational",
+      "pressure_level": null,
+      "last_inspection_days_ago": 6,
+      "expiry_days_remaining": 220,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "FA_lab_01",
+      "object_type": "FireAlarm",
+      "module": "Lab",
+      "status": "operational",
+      "pressure_level": null,
+      "last_inspection_days_ago": 3,
+      "expiry_days_remaining": 300,
+      "inspection_tag_valid": true,
+      "dependency_object_id": "SSP_lab_01"
+    },
+    {
+      "object_id": "NT_service_01",
+      "object_type": "NitrogenTank",
+      "module": "ServiceModule",
+      "status": "operational",
+      "pressure_level": 0.86,
+      "last_inspection_days_ago": 11,
+      "expiry_days_remaining": 110,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    }
+  ],
+  "ground_truth": {
+    "decision": "fire_suppressed",
+    "correct_sequence": [
+      "evacuate_module:Lab",
+      "deploy_resource:FE_lab_01",
+      "trigger_switch:SSP_lab_01",
+      "contact_ground:EP_node1_01",
+      "submit_report:none"
+    ],
+    "dangerous_combinations": [
+      "deploy_resource:OT_lab_01"
+    ]
+  }
+}

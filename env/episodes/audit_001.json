@@ -1,0 +1,119 @@
+{
+  "episode_id": "audit_001",
+  "episode_type": "audit",
+  "mission_context": "EVA-42 scheduled in 4 hours. Verify all safety objects in Airlock and Node2 are mission-ready before EVA clearance is granted.",
+  "crew_locations": {
+    "crew_1": "CrewQuarters",
+    "crew_2": "Lab"
+  },
+  "active_alerts": [],
+  "fire_spread_schedule": null,
+  "hidden_logs": [],
+  "max_turns": 6,
+  "objects": [
+    {
+      "object_id": "FE_airlock_01",
+      "object_type": "FireExtinguisher",
+      "module": "Airlock",
+      "status": "operational",
+      "pressure_level": 0.12,
+      "last_inspection_days_ago": 45,
+      "expiry_days_remaining": -3,
+      "inspection_tag_valid": false,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "OT_airlock_01",
+      "object_type": "OxygenTank",
+      "module": "Airlock",
+      "status": "operational",
+      "pressure_level": 0.92,
+      "last_inspection_days_ago": 10,
+      "expiry_days_remaining": 120,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "SSP_airlock_01",
+      "object_type": "SafetySwitchPanel",
+      "module": "Airlock",
+      "status": "operational",
+      "pressure_level": null,
+      "last_inspection_days_ago": 7,
+      "expiry_days_remaining": 365,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "FA_airlock_01",
+      "object_type": "FireAlarm",
+      "module": "Airlock",
+      "status": "operational",
+      "pressure_level": null,
+      "last_inspection_days_ago": 5,
+      "expiry_days_remaining": 200,
+      "inspection_tag_valid": true,
+      "dependency_object_id": "SSP_airlock_01"
+    },
+    {
+      "object_id": "FAB_node2_01",
+      "object_type": "FirstAidBox",
+      "module": "Node2",
+      "status": "operational",
+      "pressure_level": null,
+      "last_inspection_days_ago": 12,
+      "expiry_days_remaining": 180,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "NT_node2_01",
+      "object_type": "NitrogenTank",
+      "module": "Node2",
+      "status": "operational",
+      "pressure_level": 0.88,
+      "last_inspection_days_ago": 8,
+      "expiry_days_remaining": 90,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "EP_node2_01",
+      "object_type": "EmergencyPhone",
+      "module": "Node2",
+      "status": "operational",
+      "pressure_level": null,
+      "last_inspection_days_ago": 3,
+      "expiry_days_remaining": 300,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "FE_node2_01",
+      "object_type": "FireExtinguisher",
+      "module": "Node2",
+      "status": "operational",
+      "pressure_level": 0.95,
+      "last_inspection_days_ago": 6,
+      "expiry_days_remaining": 85,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    }
+  ],
+  "ground_truth": {
+    "decision": "block_eva",
+    "non_compliant_objects": ["FE_airlock_01"],
+    "non_compliant_reasons": {
+      "FE_airlock_01": ["expired_certification", "critically_low_pressure"]
+    },
+    "compliant_objects": [
+      "OT_airlock_01",
+      "SSP_airlock_01",
+      "FA_airlock_01",
+      "FAB_node2_01",
+      "NT_node2_01",
+      "EP_node2_01",
+      "FE_node2_01"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+name: iss-safety-operations
+version: 1.0.0
+description: >
+  Multi-mode safety operations environment set aboard the ISS.
+  Agent acts as Mission Control Safety Officer across audit,
+  emergency response, and incident investigation episodes.
+  Uses 7 physical safety objects across 6 station modules.
+tasks:
+  - id: audit_001
+    difficulty: easy
+    max_steps: 6
+    episode_type: audit
+    description: Pre-EVA safety audit, find expired equipment
+  - id: emergency_001
+    difficulty: medium
+    max_steps: 6
+    episode_type: emergency
+    description: Live fire in Lab Module, protect crew and contain
+  - id: investigation_001
+    difficulty: hard
+    max_steps: 6
+    episode_type: investigation
+    description: Post-anomaly root cause investigation with incomplete logs
+observation_space: structured_json
+action_space: categorical_with_target
+reward_range: [0.0, 1.0]
+tags: [safety, aerospace, iss, emergency-response, audit, investigation]

@@ -1,0 +1,133 @@
+{
+  "episode_id": "investigation_001",
+  "episode_type": "investigation",
+  "mission_context": "Pressure anomaly detected in Service Module 6 hours ago. Crew are safe. Logs are incomplete due to sensor buffer overflow. Determine root cause.",
+  "crew_locations": {
+    "crew_1": "CrewQuarters",
+    "crew_2": "Node1"
+  },
+  "active_alerts": [
+    {
+      "alert_id": "pressure_anomaly_service_01",
+      "alert_type": "pressure_drop",
+      "module": "ServiceModule",
+      "severity": "medium",
+      "triggered_at_timestep": 0
+    }
+  ],
+  "fire_spread_schedule": null,
+  "log_gap": {
+    "start": "14:33",
+    "end": "14:34",
+    "reason": "sensor_buffer_overflow"
+  },
+  "max_turns": 6,
+  "evidence_log": [
+    {
+      "timestamp": "14:32",
+      "object_id": "NT_service_01",
+      "event": "NitrogenTank pressure drop detected: 0.91 → 0.79",
+      "visible_to_agent": true
+    },
+    {
+      "timestamp": "14:35",
+      "object_id": "FA_service_01",
+      "event": "FireAlarm triggered in ServiceModule",
+      "visible_to_agent": true
+    },
+    {
+      "timestamp": "14:38",
+      "object_id": "SSP_service_01",
+      "event": "SafetySwitchPanel manually triggered by crew",
+      "visible_to_agent": true
+    },
+    {
+      "timestamp": "14:41",
+      "object_id": "EP_node1_01",
+      "event": "EmergencyPhone: crew_member_2 contacted ground control",
+      "visible_to_agent": true
+    }
+  ],
+  "hidden_logs": [
+    {
+      "timestamp": "14:33",
+      "object_id": "FE_service_01",
+      "event": "FireExtinguisher discharged by crew_member_2 before alarm — propellant caused false nitrogen pressure reading",
+      "visible_to_agent": false
+    }
+  ],
+  "objects": [
+    {
+      "object_id": "FE_service_01",
+      "object_type": "FireExtinguisher",
+      "module": "ServiceModule",
+      "status": "depleted",
+      "pressure_level": 0.0,
+      "last_inspection_days_ago": 14,
+      "expiry_days_remaining": 60,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "NT_service_01",
+      "object_type": "NitrogenTank",
+      "module": "ServiceModule",
+      "status": "operational",
+      "pressure_level": 0.79,
+      "last_inspection_days_ago": 7,
+      "expiry_days_remaining": 95,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "FA_service_01",
+      "object_type": "FireAlarm",
+      "module": "ServiceModule",
+      "status": "operational",
+      "pressure_level": null,
+      "last_inspection_days_ago": 5,
+      "expiry_days_remaining": 180,
+      "inspection_tag_valid": true,
+      "dependency_object_id": "SSP_service_01"
+    },
+    {
+      "object_id": "SSP_service_01",
+      "object_type": "SafetySwitchPanel",
+      "module": "ServiceModule",
+      "status": "depleted",
+      "pressure_level": null,
+      "last_inspection_days_ago": 9,
+      "expiry_days_remaining": 365,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "EP_node1_01",
+      "object_type": "EmergencyPhone",
+      "module": "Node1",
+      "status": "operational",
+      "pressure_level": null,
+      "last_inspection_days_ago": 2,
+      "expiry_days_remaining": 400,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    },
+    {
+      "object_id": "FAB_node1_01",
+      "object_type": "FirstAidBox",
+      "module": "Node1",
+      "status": "operational",
+      "pressure_level": null,
+      "last_inspection_days_ago": 8,
+      "expiry_days_remaining": 150,
+      "inspection_tag_valid": true,
+      "dependency_object_id": null
+    }
+  ],
+  "ground_truth": {
+    "decision": "identify_root_cause:FE_service_01",
+    "root_cause_object": "FE_service_01",
+    "root_cause_reason": "improper_discharge_caused_false_pressure_reading",
+    "red_herring": "NT_service_01"
+  }
+}
